@@ -8,6 +8,7 @@
 
         My.Settings.start_time = txtLStartTime.Text
         My.Settings.end_time = txtLEndTime.Text
+        My.Settings.Save()
 
         MsgBox("Update Successful",, "Update Lesson Start and End Time")
 
@@ -25,6 +26,9 @@
 
     Private Sub refresh_data()
         sql.LoadDatGridView("SELECT `id`,`details` as 'Name',`start_time` as 'Start Time',`end_time` as 'End Time',`days` as 'Days' FROM `misc` ORDER BY `details`;", dgvBreaks, "Breaks")
+        If Not sql.result Then
+            Exit Sub
+        End If
         dgvBreaks.Columns(0).Visible = False
         dgvBreaks.Columns(1).Width = 200
         dgvBreaks.Columns(4).Width = 100
@@ -44,6 +48,9 @@
         For Each index In listDays.CheckedIndices
             ParamValues.Add(listDays.Items(index).ToString())
             sql.InsertQuery("INSERT INTO `misc`(`details`,`start_time`,`end_time`,`days`) VALUES(@1,@2,@3,@4);", ParamValues)
+            If Not sql.result Then
+                Exit Sub
+            End If
             ParamValues.RemoveAt(ParamValues.IndexOf(ParamValues.Last))
         Next
 
@@ -59,6 +66,9 @@
     Private Sub btnBDelete_Click(sender As Object, e As EventArgs) Handles btnBDelete.Click
         sql.ExecuteQuery("DELETE FROM `misc` WHERE `id`='" & dgvBreaks.CurrentRow.Cells(0).Value.ToString() & "';")
         'sql.ds.Tables("Breaks").Rows(dgvBreaks.CurrentCell.RowIndex).Delete()
+        If Not sql.result Then
+            Exit Sub
+        End If
         refresh_data()
         MsgBox("Break successful deleted",, "Delete Breaks")
     End Sub
@@ -70,11 +80,14 @@
                          `days`='" & dgvBreaks.CurrentRow.Cells(4).Value.ToString() & "' 
                          WHERE `id`='" & dgvBreaks.CurrentRow.Cells(0).Value.ToString() & "';")
         'sql.ds.Tables("Breaks").AcceptChanges()
+        If Not sql.result Then
+            Exit Sub
+        End If
         refresh_data()
         MsgBox("Break successful updated",, "Update Breaks")
     End Sub
 
-    Private Sub btnBAdd_Click(sender As Object, e As EventArgs) Handles btnBAdd.Click
+    Private Sub btnBAdd_Click(sender As Object, e As EventArgs)
         sql.ds.Tables("Breaks").AcceptChanges()
         MsgBox("Break successful added",, "Add Breaks")
     End Sub
@@ -82,6 +95,9 @@
     Private Sub btnBTruncate_Click(sender As Object, e As EventArgs) Handles btnBTruncate.Click
         sql.ExecuteQuery("TRUNCATE TABLE `misc`;")
         'sql.ds.Tables("Breaks").Clear()
+        If Not sql.result Then
+            Exit Sub
+        End If
         refresh_data()
         MsgBox("Break successful truncated",, "Truncate Breaks")
     End Sub
@@ -93,11 +109,23 @@
                          `days`='" & dgvBreaks.Rows(e.RowIndex).Cells(4).Value.ToString() & "' 
                          WHERE `id`='" & dgvBreaks.Rows(e.RowIndex).Cells(0).Value.ToString() & "';")
         'sql.ds.Tables("Breaks").AcceptChanges()
+        If Not sql.result Then
+            Exit Sub
+        End If
         refresh_data()
         MsgBox("Break successful updated",, "Update Breaks")
     End Sub
 
     Private Sub btnRefresh_Click(sender As Object, e As EventArgs) Handles btnRefresh.Click
         refresh_data()
+    End Sub
+
+    Private Sub btnClassDetails_Click(sender As Object, e As EventArgs) Handles btnClassDetails.Click
+        frmEditClasses.ShowDialog()
+    End Sub
+
+    Private Sub btnTermDetails_Click(sender As Object, e As EventArgs) Handles btnTermDetails.Click
+        frmTermDetails.ShowDialog()
+        Hide()
     End Sub
 End Class

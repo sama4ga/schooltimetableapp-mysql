@@ -8,12 +8,12 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("SchoolTimetableApp")>
-<Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("SchoolTimetableApp")>
+<Assembly: AssemblyTitle("School Timetable App")>
+<Assembly: AssemblyDescription("A software for automatically generating school timetable.")>
+<Assembly: AssemblyCompany("Samaservices Nig. Ltd")>
+<Assembly: AssemblyProduct("schooltta")>
 <Assembly: AssemblyCopyright("Copyright ©  2019")>
-<Assembly: AssemblyTrademark("")>
+<Assembly: AssemblyTrademark("samaservices")>
 
 <Assembly: ComVisible(False)>
 

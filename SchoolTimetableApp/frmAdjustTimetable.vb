@@ -192,18 +192,20 @@ Public Class frmAdjustTimetable
         '    printDoc.Print()
         'End If
 
-        Dim pdb As New PrintDialog()
-        pdb.Document = PrintDocument1
+
+        Dim printObject As printDgv = New printDgv(dgvTimetable)
+        'printObject.DefaultPageSettings.Landscape = True
+        printObject.DocumentName = tvAvailableTimetables.SelectedNode.Text
+
+        Dim pdb As PrintDialog = New PrintDialog()
+        pdb.AllowPrintToFile = True
         pdb.AllowSomePages = True
         pdb.AllowCurrentPage = True
         pdb.AllowSelection = True
-        pdb.AllowPrintToFile = True
+        pdb.Document = printObject
 
-        Dim printObject As printDgv = New printDgv(dgvTimetable)
-        printObject.DefaultPageSettings.Landscape = True
-        printObject.DocumentName = tvAvailableTimetables.SelectedNode.Text
-        printObject.DefaultPageSettings.Margins = New Margins(0, 0, 0, 0)
-        printObject.DefaultPageSettings.PrinterSettings.PrintToFile = True
+        'printObject.DefaultPageSettings.Margins = New Margins(0, 0, 0, 0)
+        'printObject.DefaultPageSettings.PrinterSettings.PrintToFile = True
 
         'If printPreview.ShowDialog = DialogResult.OK Then
         If pdb.ShowDialog() = DialogResult.OK Then

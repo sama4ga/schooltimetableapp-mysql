@@ -94,10 +94,10 @@ Public Class frmViewTimeTable
 
         Dim printObject As printDgv = New printDgv(dgvTimetable)
         'Dim printObject As PrintDocument = PrintDocument1
-        printObject.DefaultPageSettings.Landscape = True
+        'printObject.DefaultPageSettings.Landscape = True
         printObject.DocumentName = tvAvailableTimetables.SelectedNode.Text
-        printObject.DefaultPageSettings.Margins = New Margins(15, 15, 50, 15)
-        printObject.DefaultPageSettings.PrinterSettings.PrintToFile = True
+        'printObject.DefaultPageSettings.Margins = New Margins(15, 15, 50, 15)
+        'printObject.DefaultPageSettings.PrinterSettings.PrintToFile = True
 
         Dim printPreview As PrintPreviewDialog = New PrintPreviewDialog()
         printPreview.Document = printObject

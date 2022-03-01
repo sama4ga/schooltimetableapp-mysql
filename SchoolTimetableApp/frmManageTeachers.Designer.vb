@@ -34,7 +34,6 @@ Partial Class frmManageTeachers
         Me.btnDeleteAllSubjectForClass = New System.Windows.Forms.Button()
         Me.btnRefresh = New System.Windows.Forms.Button()
         Me.Button3 = New System.Windows.Forms.Button()
-        Me.btnDelete = New System.Windows.Forms.Button()
         Me.btnUpdate = New System.Windows.Forms.Button()
         Me.btnClear = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -53,7 +52,7 @@ Partial Class frmManageTeachers
         Me.btnTruncateTeachers = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.btnAddTeacher = New System.Windows.Forms.Button()
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.gbAvailableTeacherTime = New System.Windows.Forms.GroupBox()
         Me.btnDeleteTime = New System.Windows.Forms.Button()
         Me.ListView1 = New System.Windows.Forms.ListView()
         Me.btnAddTime = New System.Windows.Forms.Button()
@@ -64,15 +63,17 @@ Partial Class frmManageTeachers
         Me.Label6 = New System.Windows.Forms.Label()
         Me.txtFrom = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.btnUpdateTeacher = New System.Windows.Forms.Button()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
+        Me.btnDeleteTeacherRecord = New System.Windows.Forms.Button()
+        Me.btnDelete = New System.Windows.Forms.Button()
         Me.GroupBox2.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.dgvTeachersList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
-        Me.GroupBox4.SuspendLayout()
+        Me.gbAvailableTeacherTime.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox2
@@ -80,6 +81,7 @@ Partial Class frmManageTeachers
         Me.GroupBox2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox2.Controls.Add(Me.btnDelete)
         Me.GroupBox2.Controls.Add(Me.btnDeleteSelection)
         Me.GroupBox2.Controls.Add(Me.btnTruncate)
         Me.GroupBox2.Controls.Add(Me.Panel1)
@@ -196,16 +198,6 @@ Partial Class frmManageTeachers
         Me.Button3.Text = "Button3"
         Me.Button3.UseVisualStyleBackColor = True
         '
-        'btnDelete
-        '
-        Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnDelete.Location = New System.Drawing.Point(438, 16)
-        Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(153, 32)
-        Me.btnDelete.TabIndex = 1
-        Me.btnDelete.Text = "Delete Record"
-        Me.btnDelete.UseVisualStyleBackColor = True
-        '
         'btnUpdate
         '
         Me.btnUpdate.Location = New System.Drawing.Point(546, 604)
@@ -229,7 +221,8 @@ Partial Class frmManageTeachers
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.GroupBox1.Controls.Add(Me.Button2)
+        Me.GroupBox1.Controls.Add(Me.btnDeleteTeacherRecord)
+        Me.GroupBox1.Controls.Add(Me.btnUpdateTeacher)
         Me.GroupBox1.Controls.Add(Me.cmbName)
         Me.GroupBox1.Controls.Add(Me.cmbSubjects)
         Me.GroupBox1.Controls.Add(Me.Label2)
@@ -237,7 +230,6 @@ Partial Class frmManageTeachers
         Me.GroupBox1.Controls.Add(Me.cmbClass)
         Me.GroupBox1.Controls.Add(Me.Label8)
         Me.GroupBox1.Controls.Add(Me.btnAdd)
-        Me.GroupBox1.Controls.Add(Me.btnDelete)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 434)
         Me.GroupBox1.Name = "GroupBox1"
@@ -256,6 +248,7 @@ Partial Class frmManageTeachers
         '
         'cmbSubjects
         '
+        Me.cmbSubjects.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmbSubjects.FormattingEnabled = True
         Me.cmbSubjects.Location = New System.Drawing.Point(156, 124)
         Me.cmbSubjects.Name = "cmbSubjects"
@@ -273,6 +266,7 @@ Partial Class frmManageTeachers
         '
         'cmbClass
         '
+        Me.cmbClass.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.cmbClass.FormattingEnabled = True
         Me.cmbClass.Location = New System.Drawing.Point(156, 80)
         Me.cmbClass.Name = "cmbClass"
@@ -330,7 +324,7 @@ Partial Class frmManageTeachers
         Me.GroupBox3.Controls.Add(Me.Label3)
         Me.GroupBox3.Controls.Add(Me.Button1)
         Me.GroupBox3.Controls.Add(Me.txtName)
-        Me.GroupBox3.Controls.Add(Me.GroupBox4)
+        Me.GroupBox3.Controls.Add(Me.gbAvailableTeacherTime)
         Me.GroupBox3.Controls.Add(Me.btnAddTeacher)
         Me.GroupBox3.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox3.Name = "GroupBox3"
@@ -384,26 +378,27 @@ Partial Class frmManageTeachers
         Me.btnAddTeacher.Text = "Add"
         Me.btnAddTeacher.UseVisualStyleBackColor = True
         '
-        'GroupBox4
+        'gbAvailableTeacherTime
         '
-        Me.GroupBox4.Controls.Add(Me.Label11)
-        Me.GroupBox4.Controls.Add(Me.Label10)
-        Me.GroupBox4.Controls.Add(Me.btnDeleteTime)
-        Me.GroupBox4.Controls.Add(Me.ListView1)
-        Me.GroupBox4.Controls.Add(Me.btnAddTime)
-        Me.GroupBox4.Controls.Add(Me.cmbDay)
-        Me.GroupBox4.Controls.Add(Me.Label9)
-        Me.GroupBox4.Controls.Add(Me.txtTo)
-        Me.GroupBox4.Controls.Add(Me.Label7)
-        Me.GroupBox4.Controls.Add(Me.Label6)
-        Me.GroupBox4.Controls.Add(Me.txtFrom)
-        Me.GroupBox4.Controls.Add(Me.Label5)
-        Me.GroupBox4.Location = New System.Drawing.Point(6, 122)
-        Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(610, 225)
-        Me.GroupBox4.TabIndex = 35
-        Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "Available Periods"
+        Me.gbAvailableTeacherTime.Controls.Add(Me.Label11)
+        Me.gbAvailableTeacherTime.Controls.Add(Me.Label10)
+        Me.gbAvailableTeacherTime.Controls.Add(Me.btnDeleteTime)
+        Me.gbAvailableTeacherTime.Controls.Add(Me.ListView1)
+        Me.gbAvailableTeacherTime.Controls.Add(Me.btnAddTime)
+        Me.gbAvailableTeacherTime.Controls.Add(Me.cmbDay)
+        Me.gbAvailableTeacherTime.Controls.Add(Me.Label9)
+        Me.gbAvailableTeacherTime.Controls.Add(Me.txtTo)
+        Me.gbAvailableTeacherTime.Controls.Add(Me.Label7)
+        Me.gbAvailableTeacherTime.Controls.Add(Me.Label6)
+        Me.gbAvailableTeacherTime.Controls.Add(Me.txtFrom)
+        Me.gbAvailableTeacherTime.Controls.Add(Me.Label5)
+        Me.gbAvailableTeacherTime.Location = New System.Drawing.Point(6, 122)
+        Me.gbAvailableTeacherTime.Name = "gbAvailableTeacherTime"
+        Me.gbAvailableTeacherTime.Size = New System.Drawing.Size(610, 225)
+        Me.gbAvailableTeacherTime.TabIndex = 35
+        Me.gbAvailableTeacherTime.TabStop = False
+        Me.gbAvailableTeacherTime.Text = "Available Periods"
+        Me.gbAvailableTeacherTime.Visible = False
         '
         'btnDeleteTime
         '
@@ -436,6 +431,7 @@ Partial Class frmManageTeachers
         '
         'cmbDay
         '
+        Me.cmbDay.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.cmbDay.FormattingEnabled = True
         Me.cmbDay.Items.AddRange(New Object() {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"})
         Me.cmbDay.Location = New System.Drawing.Point(412, 143)
@@ -493,15 +489,15 @@ Partial Class frmManageTeachers
         Me.Label5.TabIndex = 29
         Me.Label5.Text = "Available Time"
         '
-        'Button2
+        'btnUpdateTeacher
         '
-        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button2.Location = New System.Drawing.Point(438, 48)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(153, 32)
-        Me.Button2.TabIndex = 23
-        Me.Button2.Text = "Update Record"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.btnUpdateTeacher.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnUpdateTeacher.Location = New System.Drawing.Point(438, 48)
+        Me.btnUpdateTeacher.Name = "btnUpdateTeacher"
+        Me.btnUpdateTeacher.Size = New System.Drawing.Size(153, 32)
+        Me.btnUpdateTeacher.TabIndex = 23
+        Me.btnUpdateTeacher.Text = "Update Record"
+        Me.btnUpdateTeacher.UseVisualStyleBackColor = True
         '
         'Label10
         '
@@ -515,11 +511,31 @@ Partial Class frmManageTeachers
         'Label11
         '
         Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!)
-        Me.Label11.Location = New System.Drawing.Point(509, 99)
+        Me.Label11.Location = New System.Drawing.Point(507, 94)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(95, 29)
+        Me.Label11.Size = New System.Drawing.Size(95, 40)
         Me.Label11.TabIndex = 42
         Me.Label11.Text = "Should not be greater than end time"
+        '
+        'btnDeleteTeacherRecord
+        '
+        Me.btnDeleteTeacherRecord.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnDeleteTeacherRecord.Location = New System.Drawing.Point(438, 15)
+        Me.btnDeleteTeacherRecord.Name = "btnDeleteTeacherRecord"
+        Me.btnDeleteTeacherRecord.Size = New System.Drawing.Size(153, 32)
+        Me.btnDeleteTeacherRecord.TabIndex = 24
+        Me.btnDeleteTeacherRecord.Text = "Delete Record"
+        Me.btnDeleteTeacherRecord.UseVisualStyleBackColor = True
+        '
+        'btnDelete
+        '
+        Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnDelete.Location = New System.Drawing.Point(617, 13)
+        Me.btnDelete.Name = "btnDelete"
+        Me.btnDelete.Size = New System.Drawing.Size(110, 58)
+        Me.btnDelete.TabIndex = 27
+        Me.btnDelete.Text = "Delete Teacher"
+        Me.btnDelete.UseVisualStyleBackColor = True
         '
         'frmManageTeachers
         '
@@ -542,8 +558,8 @@ Partial Class frmManageTeachers
         Me.GroupBox1.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
-        Me.GroupBox4.ResumeLayout(False)
-        Me.GroupBox4.PerformLayout()
+        Me.gbAvailableTeacherTime.ResumeLayout(False)
+        Me.gbAvailableTeacherTime.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -561,7 +577,6 @@ Partial Class frmManageTeachers
     Friend WithEvents Label2 As Label
     Friend WithEvents cmbClass As ComboBox
     Friend WithEvents Button3 As Button
-    Friend WithEvents btnDelete As Button
     Friend WithEvents btnUpdate As Button
     Friend WithEvents cmbName As ComboBox
     Friend WithEvents Label3 As Label
@@ -576,7 +591,7 @@ Partial Class frmManageTeachers
     Friend WithEvents btnDeleteSelection As Button
     Friend WithEvents cmbType As ComboBox
     Friend WithEvents Label4 As Label
-    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents gbAvailableTeacherTime As GroupBox
     Friend WithEvents btnAddTime As Button
     Friend WithEvents cmbDay As ComboBox
     Friend WithEvents Label9 As Label
@@ -587,7 +602,9 @@ Partial Class frmManageTeachers
     Friend WithEvents Label5 As Label
     Friend WithEvents ListView1 As ListView
     Friend WithEvents btnDeleteTime As Button
-    Friend WithEvents Button2 As Button
+    Friend WithEvents btnUpdateTeacher As Button
     Friend WithEvents Label11 As Label
     Friend WithEvents Label10 As Label
+    Friend WithEvents btnDelete As Button
+    Friend WithEvents btnDeleteTeacherRecord As Button
 End Class

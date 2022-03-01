@@ -13,6 +13,29 @@
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ProductName>schooltta</ProductName>
+    <PublisherName>Samaservices Nig. Ltd</PublisherName>
+    <SuiteName>schooltta</SuiteName>
+    <AutorunEnabled>true</AutorunEnabled>
+    <DisallowUrlActivation>true</DisallowUrlActivation>
+    <TrustUrlParameters>true</TrustUrlParameters>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -46,8 +69,31 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>samaservices.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>F55405710E398F148108B99A1E9025F06EBFADEB</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>SchoolTimetableApp_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FlexCell, Version=4.4.2.0, Culture=neutral, PublicKeyToken=6f86587eb70ee309, processorArchitecture=MSIL" />
     <Reference Include="MySql.Data, Version=8.0.11.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -75,6 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="activeSubjects.vb" />
+    <Compile Include="ApplicationEvents.vb" />
     <Compile Include="breaks.vb" />
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
@@ -87,6 +134,12 @@
       <DependentUpon>frmAdjustTimetable.vb</DependentUpon>
     </Compile>
     <Compile Include="frmAdjustTimetable.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEditClasses.Designer.vb">
+      <DependentUpon>frmEditClasses.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmEditClasses.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmGenerateTimeTable.Designer.vb">
@@ -111,6 +164,18 @@
       <DependentUpon>frmMisc.vb</DependentUpon>
     </Compile>
     <Compile Include="frmMisc.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTermDetails.Designer.vb">
+      <DependentUpon>frmTermDetails.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmTermDetails.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUpdateTeacherRecord.Designer.vb">
+      <DependentUpon>frmUpdateTeacherRecord.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmUpdateTeacherRecord.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmViewTimeTable.Designer.vb">
@@ -155,6 +220,9 @@
     <EmbeddedResource Include="frmAdjustTimetable.resx">
       <DependentUpon>frmAdjustTimetable.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmEditClasses.resx">
+      <DependentUpon>frmEditClasses.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmGenerateTimeTable.resx">
       <DependentUpon>frmGenerateTimeTable.vb</DependentUpon>
     </EmbeddedResource>
@@ -167,6 +235,12 @@
     <EmbeddedResource Include="frmMisc.resx">
       <DependentUpon>frmMisc.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmTermDetails.resx">
+      <DependentUpon>frmTermDetails.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUpdateTeacherRecord.resx">
+      <DependentUpon>frmUpdateTeacherRecord.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmViewTimeTable.resx">
       <DependentUpon>frmViewTimeTable.vb</DependentUpon>
     </EmbeddedResource>
@@ -178,6 +252,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -188,6 +263,7 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <None Include="SchoolTimetableApp_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\calendar.PNG" />
@@ -206,6 +282,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\rose.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="samaservices.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

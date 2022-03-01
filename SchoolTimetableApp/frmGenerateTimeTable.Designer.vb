@@ -33,9 +33,11 @@ Partial Class frmGenerateTimeTable
         Me.dgvExtraSubjects = New System.Windows.Forms.DataGridView()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.btnManuallyAdjust = New System.Windows.Forms.Button()
+        Me.btnReduce = New System.Windows.Forms.Button()
         CType(Me.dgvTimetable, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvExtraSubjects, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -56,10 +58,10 @@ Partial Class frmGenerateTimeTable
         '
         Me.btnGenerate.Anchor = System.Windows.Forms.AnchorStyles.Bottom
         Me.btnGenerate.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnGenerate.Location = New System.Drawing.Point(180, 586)
+        Me.btnGenerate.Location = New System.Drawing.Point(12, 574)
         Me.btnGenerate.Margin = New System.Windows.Forms.Padding(2)
         Me.btnGenerate.Name = "btnGenerate"
-        Me.btnGenerate.Size = New System.Drawing.Size(211, 24)
+        Me.btnGenerate.Size = New System.Drawing.Size(256, 39)
         Me.btnGenerate.TabIndex = 3
         Me.btnGenerate.Text = "Click here to &Generate Timetable"
         Me.btnGenerate.UseVisualStyleBackColor = True
@@ -68,10 +70,10 @@ Partial Class frmGenerateTimeTable
         '
         Me.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom
         Me.btnSave.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSave.Location = New System.Drawing.Point(395, 586)
+        Me.btnSave.Location = New System.Drawing.Point(293, 574)
         Me.btnSave.Margin = New System.Windows.Forms.Padding(2)
         Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(103, 24)
+        Me.btnSave.Size = New System.Drawing.Size(183, 39)
         Me.btnSave.TabIndex = 4
         Me.btnSave.Text = "Save Timetable"
         Me.btnSave.UseVisualStyleBackColor = True
@@ -80,10 +82,10 @@ Partial Class frmGenerateTimeTable
         '
         Me.btnPrint.Anchor = System.Windows.Forms.AnchorStyles.Bottom
         Me.btnPrint.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnPrint.Location = New System.Drawing.Point(502, 586)
+        Me.btnPrint.Location = New System.Drawing.Point(502, 574)
         Me.btnPrint.Margin = New System.Windows.Forms.Padding(2)
         Me.btnPrint.Name = "btnPrint"
-        Me.btnPrint.Size = New System.Drawing.Size(103, 24)
+        Me.btnPrint.Size = New System.Drawing.Size(184, 39)
         Me.btnPrint.TabIndex = 5
         Me.btnPrint.Text = "Print Timetable"
         Me.btnPrint.UseVisualStyleBackColor = True
@@ -125,7 +127,7 @@ Partial Class frmGenerateTimeTable
         Me.dgvExtraSubjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvExtraSubjects.Location = New System.Drawing.Point(6, 40)
         Me.dgvExtraSubjects.Name = "dgvExtraSubjects"
-        Me.dgvExtraSubjects.Size = New System.Drawing.Size(361, 393)
+        Me.dgvExtraSubjects.Size = New System.Drawing.Size(361, 372)
         Me.dgvExtraSubjects.TabIndex = 7
         '
         'Label2
@@ -141,44 +143,73 @@ Partial Class frmGenerateTimeTable
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.btnReduce)
         Me.GroupBox1.Controls.Add(Me.Label5)
+        Me.GroupBox1.Controls.Add(Me.btnManuallyAdjust)
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.dgvExtraSubjects)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Location = New System.Drawing.Point(692, 35)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(379, 524)
+        Me.GroupBox1.Size = New System.Drawing.Size(379, 578)
         Me.GroupBox1.TabIndex = 9
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Visible = False
         '
-        'Label3
+        'Label5
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(37, 457)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(118, 13)
-        Me.Label3.TabIndex = 9
-        Me.Label3.Text = "Try on of these options:"
+        Me.Label5.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(64, 451)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(157, 13)
+        Me.Label5.TabIndex = 11
+        Me.Label5.Text = "Manually adjusting the timetable"
         '
         'Label4
         '
+        Me.Label4.Anchor = System.Windows.Forms.AnchorStyles.Bottom
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(68, 499)
+        Me.Label4.Location = New System.Drawing.Point(64, 471)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(269, 13)
         Me.Label4.TabIndex = 10
         Me.Label4.Text = "Reducing the number of times subjects should be taken"
         '
-        'Label5
+        'Label3
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(68, 479)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(157, 13)
-        Me.Label5.TabIndex = 11
-        Me.Label5.Text = "Manually adjusting the timetable"
+        Me.Label3.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(33, 429)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(118, 13)
+        Me.Label3.TabIndex = 9
+        Me.Label3.Text = "Try on of these options:"
+        '
+        'btnManuallyAdjust
+        '
+        Me.btnManuallyAdjust.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.btnManuallyAdjust.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnManuallyAdjust.Location = New System.Drawing.Point(61, 507)
+        Me.btnManuallyAdjust.Margin = New System.Windows.Forms.Padding(2)
+        Me.btnManuallyAdjust.Name = "btnManuallyAdjust"
+        Me.btnManuallyAdjust.Size = New System.Drawing.Size(272, 24)
+        Me.btnManuallyAdjust.TabIndex = 10
+        Me.btnManuallyAdjust.Text = "Manually Adjust Timetable"
+        Me.btnManuallyAdjust.UseVisualStyleBackColor = True
+        '
+        'btnReduce
+        '
+        Me.btnReduce.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.btnReduce.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnReduce.Location = New System.Drawing.Point(61, 539)
+        Me.btnReduce.Margin = New System.Windows.Forms.Padding(2)
+        Me.btnReduce.Name = "btnReduce"
+        Me.btnReduce.Size = New System.Drawing.Size(272, 24)
+        Me.btnReduce.TabIndex = 11
+        Me.btnReduce.Text = "Reduce Number of Tiimes per Week"
+        Me.btnReduce.UseVisualStyleBackColor = True
         '
         'frmGenerateTimeTable
         '
@@ -217,4 +248,6 @@ Partial Class frmGenerateTimeTable
     Friend WithEvents Label5 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents Label3 As Label
+    Friend WithEvents btnReduce As Button
+    Friend WithEvents btnManuallyAdjust As Button
 End Class

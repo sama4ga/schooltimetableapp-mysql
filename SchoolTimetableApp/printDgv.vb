@@ -55,6 +55,54 @@ Public Class printDgv
         ' print the header text for a new page
         '   use a grey bg just like the control
         If newpage Then
+
+            e.Graphics.DrawString("PRINTED FROM SCHOOLTTA, A PRODUCT OF SAMASERVICES", New Font("Times New Romans", 6, FontStyle.Italic), Brushes.Gray, New Point(y, e.MarginBounds.Left))
+            e.Graphics.DrawString("Date Printed: " & DateTime.Now().ToLongDateString(), New Font("Times New Romans", 6, FontStyle.Italic), Brushes.Gray, New Point(e.MarginBounds.Right - 200, e.MarginBounds.Left))
+
+            Dim mBrush As Brush = Brushes.Black
+
+            Dim fnt As Font = New Font("Times New Romans", 10, FontStyle.Regular)
+            Dim leading As Long = 10
+
+            Dim startX As Short = 0
+            Dim startY As Short = leading
+            Dim offset As Short = 10
+
+            Dim formatCenter As StringFormat = New StringFormat(StringFormatFlags.NoClip)
+            formatCenter.Alignment = StringAlignment.Center
+            Dim layoutSize As SizeF = New SizeF(e.PageBounds.Width - offset * 2, leading)
+            Dim Layout As RectangleF = New RectangleF(New PointF(startX, startY + offset), layoutSize)
+
+
+            fnt = New Font("Times New Romans", 10, FontStyle.Bold)
+            leading = fnt.GetHeight() + 5
+            offset += leading
+            layoutSize = New SizeF(e.MarginBounds.Width, leading)
+            Layout = New RectangleF(New PointF(startX, startY + offset), layoutSize)
+            e.Graphics.DrawString(My.Settings.school_name, fnt, mBrush, Layout, formatCenter)
+
+            fnt = New Font("Times New Romans", 9, FontStyle.Regular)
+            leading = fnt.GetHeight() + 5
+            offset += leading
+            layoutSize = New SizeF(e.MarginBounds.Width, leading)
+            Layout = New RectangleF(New PointF(startX, startY + offset), layoutSize)
+            e.Graphics.DrawString(My.Settings.school_address, fnt, mBrush, Layout, formatCenter)
+
+            fnt = New Font("Times New Romans", 8, FontStyle.Italic)
+            leading = fnt.GetHeight() + 5
+            offset += leading
+            layoutSize = New SizeF(e.MarginBounds.Width, leading)
+            Layout = New RectangleF(New PointF(startX, startY + offset), layoutSize)
+            e.Graphics.DrawString("Motto: " & My.Settings.school_motto, fnt, mBrush, Layout, formatCenter)
+
+            fnt = New Font("Times New Romans", 10, FontStyle.Italic)
+            leading = fnt.GetHeight() + 15
+            offset += leading
+            layoutSize = New SizeF(e.MarginBounds.Width, leading)
+            Layout = New RectangleF(New PointF(startX, startY + offset), layoutSize)
+            e.Graphics.DrawString("School Timetable for " & My.Settings.term & " term " & My.Settings.session & " academic session", fnt, mBrush, Layout, formatCenter)
+
+            y += 90
             row = dgv.Rows(mRow)
             x = e.MarginBounds.Left
             For Each cell As DataGridViewCell In row.Cells
@@ -81,6 +129,7 @@ Public Class printDgv
         ' now print the data for each row
         Dim thisNDX As Integer
         For thisNDX = mRow To dgv.RowCount - 1
+
             ' no need to try to print the new row
             If dgv.Rows(thisNDX).IsNewRow Then Exit For
 
@@ -88,8 +137,25 @@ Public Class printDgv
             x = e.MarginBounds.Left
             h = 0
 
-            ' reset X for data
-            ' x = e.MarginBounds.Left
+
+            ' check for class rows
+            If rowsToPaint.Contains(mRow) Then
+                x = e.MarginBounds.Left
+                h = 0
+                rc = New Rectangle(x, y, x + row.Cells.Count * width, height)
+
+                Using br As New SolidBrush(Color.MistyRose)
+                    e.Graphics.FillRectangle(br, rc)
+                    e.Graphics.DrawRectangle(Pens.Black, rc)
+                    fmt.Alignment = StringAlignment.Center
+                    e.Graphics.DrawString(row.Cells(0).Value.ToString(), dgv.Font, Brushes.Black, rc, fmt)
+                    x += rc.Width
+                    h = Math.Max(h, rc.Height)
+                End Using
+                GoTo c
+            End If
+
+
 
             ' print the data
             For Each cell As DataGridViewCell In row.Cells
@@ -132,22 +198,22 @@ Public Class printDgv
 
 
 
-            ' check for class rows
-            If rowsToPaint.Contains(mRow) Then
-                x = e.MarginBounds.Left
-                h = 0
-                rc = New Rectangle(x, y, x + row.Cells.Count * width, height)
+            '' check for class rows
+            'If rowsToPaint.Contains(mRow) Then
+            '    x = e.MarginBounds.Left
+            '    h = 0
+            '    rc = New Rectangle(x, y, x + row.Cells.Count * width, height)
 
-                Using br As New SolidBrush(Color.MistyRose)
-                    e.Graphics.FillRectangle(br, rc)
-                    e.Graphics.DrawRectangle(Pens.Black, rc)
-                    fmt.Alignment = StringAlignment.Center
-                    e.Graphics.DrawString(row.Cells(0).Value.ToString(), dgv.Font, Brushes.Black, rc, fmt)
-                    x += rc.Width
-                    h = Math.Max(h, rc.Height)
-                End Using
+            '    Using br As New SolidBrush(Color.MistyRose)
+            '        e.Graphics.FillRectangle(br, rc)
+            '        e.Graphics.DrawRectangle(Pens.Black, rc)
+            '        fmt.Alignment = StringAlignment.Center
+            '        e.Graphics.DrawString(row.Cells(0).Value.ToString(), dgv.Font, Brushes.Black, rc, fmt)
+            '        x += rc.Width
+            '        h = Math.Max(h, rc.Height)
+            '    End Using
 
-            End If
+            'End If
 
 
 
@@ -176,11 +242,12 @@ Public Class printDgv
             End If
             groupRow = False
 
-            y += h
+c:          y += h
+
             ' next row to print
             mRow = thisNDX + 1
 
-            If y + h > e.MarginBounds.Bottom Then
+            If y + h > e.MarginBounds.Bottom Or mRow = 18 Then
                 e.HasMorePages = True
                 ' mRow -= 1   causes last row to rePrint on next page
                 newpage = True

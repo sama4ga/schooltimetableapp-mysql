@@ -8,19 +8,25 @@ Public Class MysqlCon
     Private dt As DataTable
     Public ds As DataSet
     Public rd As MySqlDataReader
+    Public result As Boolean
 
 
     Public Sub ExecuteQuery(query As String)
+        result = False
+        Dim trans As MySqlTransaction
         Try
             If con.State = ConnectionState.Closed Then
                 con.Open()
             End If
+            trans = con.BeginTransaction()
 
             cmd = New MySqlCommand(query, con)
             cmd.ExecuteNonQuery()
-
+            trans.Commit()
+            result = True
         Catch ex As MySqlException
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error executing Query")
+            trans.Rollback()
         Finally
             con.Close()
             cmd.Dispose()
@@ -31,15 +37,20 @@ Public Class MysqlCon
 
 
     Public Function InsertQuery(query As String, ParamValues As List(Of String)) As Long
+        result = False
+        Dim trans As MySqlTransaction
         Try
             If con.State = ConnectionState.Closed Then
                 con.Open()
             End If
+            trans = con.BeginTransaction()
 
             cmd = New MySqlCommand(query, con)
 
             'If command.IsPrepared Then
             cmd.Parameters.Clear()
+            cmd.Prepare()
+
             Dim count = 1
             For Each index In ParamValues
                 Dim paramName As String = "@" & count
@@ -47,12 +58,14 @@ Public Class MysqlCon
                 count += 1
                 'MsgBox(index)
             Next
-            cmd.Prepare()
+
             cmd.ExecuteNonQuery()
             Return cmd.LastInsertedId
-
+            trans.Commit()
+            result = True
         Catch ex As MySqlException
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error executing Query")
+            trans.Rollback()
             Return 0
         Finally
             con.Close()
@@ -63,6 +76,7 @@ Public Class MysqlCon
     End Function
 
     Public Sub LoadComboBox(query As String, cmb As ComboBox, name As String)
+        result = False
         Try
             If con.State = ConnectionState.Closed Then
                 con.Open()
@@ -81,7 +95,7 @@ Public Class MysqlCon
             cmb.DisplayMember = dt.Columns(1).ColumnName
             cmb.ValueMember = dt.Columns(0).ColumnName
 
-
+            result = True
 
         Catch ex As MySqlException
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error executing Query")
@@ -97,6 +111,7 @@ Public Class MysqlCon
 
 
     Public Sub LoadListBox(query As String, lb As ListBox, name As String)
+        result = False
         Try
             If con.State = ConnectionState.Closed Then
                 con.Open()
@@ -115,7 +130,7 @@ Public Class MysqlCon
             lb.DisplayMember = dt.Columns(1).ColumnName
             lb.ValueMember = dt.Columns(0).ColumnName
 
-
+            result = True
 
         Catch ex As MySqlException
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error executing Query")
@@ -131,6 +146,7 @@ Public Class MysqlCon
 
 
     Public Sub LoadDatGridView(query As String, dgv As DataGridView, name As String)
+        result = False
         Try
             If con.State = ConnectionState.Closed Then
                 con.Open()
@@ -147,7 +163,7 @@ Public Class MysqlCon
 
             dgv.DataSource = dt
 
-
+            result = True
 
         Catch ex As MySqlException
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Error executing Query")
@@ -163,6 +179,7 @@ Public Class MysqlCon
 
 
     Public Function readData(query As String) As MySqlDataReader
+        result = False
         Try
             If con.State = ConnectionState.Closed Then
                 con.Open()
@@ -171,6 +188,7 @@ Public Class MysqlCon
             cmd = New MySqlCommand(query, con)
             rd = cmd.ExecuteReader()
 
+            result = True
             Return rd
 
         Catch ex As MySqlException
@@ -197,6 +215,7 @@ Public Class MysqlCon
 
 
     Public Function CreateDatasource(query As String, name As String) As DataTable
+        result = False
         Try
             If con.State = ConnectionState.Closed Then
                 con.Open()
@@ -211,6 +230,7 @@ Public Class MysqlCon
             da.Fill(dt)
             ds.Tables.Add(dt)
 
+            result = True
             Return dt
 
         Catch ex As MySqlException

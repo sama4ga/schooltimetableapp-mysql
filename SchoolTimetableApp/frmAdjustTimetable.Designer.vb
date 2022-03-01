@@ -26,7 +26,6 @@ Partial Class frmAdjustTimetable
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.tvAvailableTimetables = New System.Windows.Forms.TreeView()
-        Me.Grid1 = New FlexCell.Grid()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.btnPrint = New System.Windows.Forms.Button()
@@ -59,7 +58,6 @@ Partial Class frmAdjustTimetable
         '
         'SplitContainer1.Panel2
         '
-        Me.SplitContainer1.Panel2.Controls.Add(Me.Grid1)
         Me.SplitContainer1.Panel2.Controls.Add(Me.Label1)
         Me.SplitContainer1.Panel2.Controls.Add(Me.GroupBox2)
         Me.SplitContainer1.Panel2.Controls.Add(Me.dgvTimetable)
@@ -90,20 +88,6 @@ Partial Class frmAdjustTimetable
         Me.tvAvailableTimetables.Name = "tvAvailableTimetables"
         Me.tvAvailableTimetables.Size = New System.Drawing.Size(327, 575)
         Me.tvAvailableTimetables.TabIndex = 0
-        '
-        'Grid1
-        '
-        Me.Grid1.CheckedImage = Nothing
-        Me.Grid1.Cols = 2
-        Me.Grid1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Grid1.GridColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Grid1.Location = New System.Drawing.Point(465, 12)
-        Me.Grid1.Name = "Grid1"
-        Me.Grid1.Rows = 2
-        Me.Grid1.Size = New System.Drawing.Size(123, 42)
-        Me.Grid1.TabIndex = 3
-        Me.Grid1.UncheckedImage = Nothing
-        Me.Grid1.Visible = False
         '
         'Label1
         '
@@ -231,7 +215,6 @@ Partial Class frmAdjustTimetable
     Friend WithEvents btnSave As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents FileSystemWatcher1 As IO.FileSystemWatcher
-    Friend WithEvents Grid1 As FlexCell.Grid
     Friend WithEvents btnPrint As Button
     Friend WithEvents PrintDocument1 As Printing.PrintDocument
     Friend WithEvents PrintPreviewDialog1 As PrintPreviewDialog

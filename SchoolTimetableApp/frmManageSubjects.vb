@@ -51,6 +51,9 @@ Public Class frmManageSubjects
 
             'check uif subject is already in subjects table
             sql.readData("SELECT * FROM `subjects` WHERE `name` = '" + Trim(txtName.Text) + "';")
+            If Not sql.result Then
+                Exit Sub
+            End If
             If sql.rd.HasRows Then
                 subject_id = sql.rd.GetInt32("subject_id")
                 ' MsgBox("Subject already exists in the database")
@@ -67,6 +70,9 @@ Public Class frmManageSubjects
 
                 Dim source As AutoCompleteStringCollection = New AutoCompleteStringCollection()
                 sql.readData("SELECT * FROM `subjects`;")
+                If Not sql.result Then
+                    Exit Sub
+                End If
                 If sql.rd.HasRows() Then
                     While sql.rd.Read()
                         source.Add(sql.rd.GetString("name"))
@@ -103,7 +109,9 @@ Public Class frmManageSubjects
                 'MsgBox(listClass.Items(index).Row(0).ToString())
                 sql.InsertQuery("INSERT INTO `subject_class`(`subject_id`,`class_id`,`time_per_period`,`no_times_per_week`,`no_double_period`,`total_time_per_week`,`category`) 
                                 VALUES(@1,@2,@3,@4,@5,@6,@7);", paramValues)
-
+                If Not sql.result Then
+                    Exit Sub
+                End If
             Next
 
             MsgBox("Subject successfully added")
@@ -128,10 +136,16 @@ Public Class frmManageSubjects
 
     Private Sub frmManageSubjects_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         sql.LoadListBox("SELECT * FROM `class` ORDER BY `name`;", listClass, "class")
+        If Not sql.result Then
+            Exit Sub
+        End If
         refresh_data()
 
         Dim source As AutoCompleteStringCollection = New AutoCompleteStringCollection()
         sql.readData("SELECT * FROM `subjects`;")
+        If Not sql.result Then
+            Exit Sub
+        End If
         If sql.rd.HasRows() Then
             While sql.rd.Read()
                 source.Add(sql.rd.GetString("name"))
@@ -167,12 +181,15 @@ Public Class frmManageSubjects
                                 LEFT JOIN
                             `class` c ON sc.`class_id` = c.`class_id` ORDER BY c.`name`;", dgvSubjectList, "subject")
 
+        If Not sql.result Then
+            Exit Sub
+        End If
         dgvSubjectList.Columns(0).Visible = False
         dgvSubjectList.Columns(1).Width = 200           'subject name
         dgvSubjectList.Columns(2).ReadOnly = True       'class
         'dgvSubjectList.Columns(3).ReadOnly = True       'category
-        'dgvSubjectList.Columns(6).ReadOnly = True       'time per period
-        'dgvSubjectList.Columns(7).ReadOnly = True       'total time per week
+        dgvSubjectList.Columns(6).ReadOnly = True       'time per period
+        dgvSubjectList.Columns(7).ReadOnly = True       'total time per week
 
     End Sub
 
@@ -190,6 +207,9 @@ Public Class frmManageSubjects
         Dim subj As String = dgvSubjectList.CurrentRow.Cells(1).Value.ToString()
         If MsgBox("Do you really want to delete " & subj & " for all classes", MsgBoxStyle.YesNo & MsgBoxStyle.Question) = MsgBoxResult.Yes Then
             sql.ExecuteQuery("DELETE FROM `subject_class` WHERE `subject_id`='" & id & "'")
+            If Not sql.result Then
+                Exit Sub
+            End If
             MsgBox("Subject successfully deleted")
             refresh_data()
         End If
@@ -204,6 +224,9 @@ Public Class frmManageSubjects
         Dim class_id As Integer = 0
         'get the class id
         sql.readData("SELECT `class_id` FROM `class` WHERE `name`='" & sub_class & "';")
+        If Not sql.result Then
+            Exit Sub
+        End If
         If sql.rd.HasRows Then
             sql.rd.Read()
             class_id = sql.rd.GetInt32("class_id")
@@ -212,6 +235,9 @@ Public Class frmManageSubjects
 
         If e.ColumnIndex = 1 Then
             sql.ExecuteQuery("UPDATE `subjects` SET `name`='" & value & "' WHERE `subject_id`='" & subject_id & "' AND `class_id`='" & class_id & "';")
+            If Not sql.result Then
+                Exit Sub
+            End If
         ElseIf e.ColumnIndex > 3
 
             Dim no_times_per_week As Integer = CInt(dgvSubjectList.Rows(e.RowIndex).Cells(4).Value.ToString())
@@ -231,8 +257,14 @@ Public Class frmManageSubjects
                                   `total_time_per_week` = '" & total_time_per_week & "'
                                   WHERE `subject_id`='" & subject_id & "' AND `class_id`='" & class_id & "';")
             'End If
+            If Not sql.result Then
+                Exit Sub
+            End If
         ElseIf e.ColumnIndex = 3
             sql.ExecuteQuery("UPDATE `subject_class` SET `category`='" & value & "' WHERE `subject_id`='" & subject_id & "' AND `class_id`='" & class_id & "';")
+            If Not sql.result Then
+                Exit Sub
+            End If
         End If
 
         MsgBox("Update successful")
@@ -251,12 +283,18 @@ Public Class frmManageSubjects
 
         'get the class id
         sql.readData("SELECT `class_id` FROM `class` WHERE `name`='" & sub_class & "';")
+        If Not sql.result Then
+            Exit Sub
+        End If
         If sql.rd.HasRows Then
             Dim class_id = sql.rd.GetInt32("class_id")
             sql.CloseCon()
 
             If MsgBox("Do you really want to delete " & subj & " for " & sub_class, MsgBoxStyle.YesNo & MsgBoxStyle.Question) = MsgBoxResult.Yes Then
                 sql.ExecuteQuery("DELETE FROM `subject_class` WHERE `subject_id`='" & id & "' AND `class_id`='" & class_id & "';")
+                If Not sql.result Then
+                    Exit Sub
+                End If
                 MsgBox("Subject successfully deleted")
                 refresh_data()
             End If
@@ -273,7 +311,13 @@ Public Class frmManageSubjects
     Private Sub btnTruncate_Click(sender As Object, e As EventArgs) Handles btnTruncate.Click
         If MsgBox("Are you sure you want to truncate this table" & vbCrLf & "This will delete all data in the table", MsgBoxStyle.Question & MsgBoxStyle.YesNo, "Manage Subjects") = MsgBoxResult.Yes Then
             sql.ExecuteQuery("TRUNCATE TABLE `subject_class`;")
+            If Not sql.result Then
+                Exit Sub
+            End If
             sql.ExecuteQuery("TRUNCATE TABLE `subjects`;")
+            If Not sql.result Then
+                Exit Sub
+            End If
             MsgBox("Subjects successfully deleted")
             refresh_data()
         End If

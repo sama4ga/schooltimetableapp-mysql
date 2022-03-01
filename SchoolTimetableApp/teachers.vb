@@ -20,23 +20,27 @@
     ''' Creates a new teacher with name
     ''' </summary>
     ''' <param name="name">Holds the name of the teacher</param>
-    Public Sub New(name As String)
+    Public Sub New(name As String, type As String)
         teacher_name = name
         'teacher_id = 0
         work_load = 0
         active_status = False
+        teacher_type = type
     End Sub
 
     ''' <summary>
     ''' Creates a new teacher with name and id
     ''' </summary>
     ''' <param name="name">Holds the name of the teacher</param>
-    ''' ''' <param name="id">Holds the id of the teacher</param>
-    Public Sub New(name As String, id As Integer)
+    ''' <param name="id">Holds the id of the teacher</param>
+    ''' <param name="type">Holds the type of the teacher</param>
+    Public Sub New(name As String, id As Integer, type As String)
         teacher_name = name
         teacher_id = id
         work_load = 0
         active_status = False
+        available_time = New List(Of teachers_avialable_time)
+        teacher_type = type
     End Sub
 
     ''' <summary>
